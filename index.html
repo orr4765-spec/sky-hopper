@@ -134,7 +134,7 @@ h2{font-size:32px;font-weight:900;text-align:center}
 import * as THREE from 'three';
 
 // ---------- online scoreboard server ----------
-const SCORE_URL=''; // filled in once the Cloudflare worker is deployed
+const SCORE_URL='https://sky-hopper-board.sky-hopper-game.workers.dev';
 
 // ---------- persistent save ----------
 const SAVE_KEY='skyhopper_v2';
@@ -584,7 +584,7 @@ async function submitScore(score,floor){
     const idx=board.findIndex(x=>x.id===save.id);return idx>=0?idx+1:null;}
   catch(e){setLive(false);return null;}
 }
-function startBoardPolling(){fetchBoard();clearInterval(boardTimer);boardTimer=setInterval(()=>{if(S.state!=='play')fetchBoard();},4000);}
+function startBoardPolling(){fetchBoard();clearInterval(boardTimer);boardTimer=setInterval(()=>{if($('hud').style.display!=='flex')fetchBoard();},4000);}
 
 // ---------- menus ----------
 function refreshMenu(){$('mBest').textContent=save.best;$('mCoins').textContent=save.coins;$('profName').textContent=save.name||'אורח';drawAvatar($('profCan'),save.photo,save.acc);}
